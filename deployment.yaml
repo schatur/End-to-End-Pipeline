@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: minikubeapp-ctr
-        image: kishorsg/my-app:2.0.0
+        image: schatur/jenkins-pipeline:tagname
         ports:
-        - containerPort: 8080
+        - containerPort: 8089
 
 ---
 apiVersion: v1
