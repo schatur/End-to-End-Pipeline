@@ -16,7 +16,7 @@ spec:
       - name: minikubeapp-ctr
         image: schatur/jenkins-pipeline:tagname
         ports:
-        - containerPort: 8089
+        - containerPort: 8081
 
 ---
 apiVersion: v1
@@ -29,7 +29,7 @@ spec:
   type: NodePort
   ports:
     - port: 8075
-      targetPort: 8080
+      targetPort: 8081
       protocol: TCP   
       
   selector:
