@@ -40,10 +40,17 @@ node {
             pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
         }
     }
+    stage("Deploy To Kuberates Cluster"){
+       kubernetesDeploy(
+         configs: 'deployment.yml', 
+         kubeconfigId: 'KUBERNETES_CLUSTER_CONFIG',
+         )
+     }
+	 
 
-    stage('Run App'){
+   /* stage('Run App'){
         runApp(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, HTTP_PORT)
-    }
+    }*/
 
 }
 
@@ -66,8 +73,8 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
     echo "Image push complete"
 }
 
-def runApp(containerName, tag, dockerHubUser, httpPort){
+/*def runApp(containerName, tag, dockerHubUser, httpPort){
     sh "docker pull $dockerHubUser/$containerName"
     sh "docker run -d --rm -p $httpPort:$httpPort --name $containerName $dockerHubUser/$containerName:$tag"
     echo "Application started on port: ${httpPort} (http)"
-}
+}*/
