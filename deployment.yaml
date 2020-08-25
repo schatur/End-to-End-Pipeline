@@ -1,36 +1,31 @@
-apiVersion: apps/v1 
-kind: Deployment
-metadata:
-  name: deployment-minikube
-spec:
-  selector:
-    matchLabels:
-      app: minikubeapp
-  
-  template:
-    metadata:
-      labels:
-        app: minikubeapp
-    spec:
-      containers:
-      - name: minikubeapp-ctr
-        image: schatur/jenkins-pipeline:tagname
-        ports:
-        - containerPort: 8081
-
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: minikubeapp-svc
-  labels:
-    app: minikubeapp
+  name: hello-kubernetes
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-    - port: 8075
-      targetPort: 8081
-      protocol: TCP   
-      
+  - port: 80
+    targetPort: 8080
   selector:
-    app: minikubeapp
+    app: hello-kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kubernetes
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-kubernetes
+  template:
+    metadata:
+      labels:
+        app: hello-kubernetes
+    spec:
+      containers:
+      - name: hello-kubernetes
+        image: schatur/jenkins-pipeline:tagname
+        ports:
+        - containerPort: 8080
