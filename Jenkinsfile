@@ -42,7 +42,7 @@ node {
     }
     stage("Deploy To Kuberates Cluster"){
        kubernetesDeploy(
-         configs: 'deployment.yml', 
+         configs: 'deployment.yaml', 
          kubeconfigId: 'KUBERNETES_CLUSTER_CONFIG',
          )
      }
